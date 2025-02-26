@@ -1,0 +1,87 @@
+services:
+  # ✅ RabbitMQ con Panel de Administración y Creación de Colas
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - banco-network
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    restart: no
+    command: >
+      bash -c "
+      rabbitmq-server & sleep 15 &&
+      rabbitmqadmin declare queue --vhost=/ name=cola.solicitud.cuentas durable=true &&
+      rabbitmqadmin declare queue --vhost=/ name=cola.respuesta.cuentas durable=true &&
+      tail -f /dev/null"
+
+  # ✅ SQL Server con Creación de Bases de Datos
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver-container
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "SiSePuede123*"
+      ACCEPT_EULA: "Y"
+    networks:
+      - banco-network
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    restart: no
+
+
+
+  # ✅ Microservicio de Clientes
+  ms-clientes:
+    build:
+      context: ./ms-clientes
+      dockerfile: Dockerfile
+    container_name: ms-clientes
+    ports:
+      - "8081:8081"
+    networks:
+      - banco-network
+    depends_on:
+      - sqlserver
+      - rabbitmq
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:sqlserver://sqlserver-container:1433;databaseName=ClientesDB;encrypt=false;
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD: "SiSePuede123*"
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+
+  # ✅ Microservicio de Cuentas
+  ms-cuentas:
+    build:
+      context: ./ms-cuentas
+      dockerfile: Dockerfile
+    container_name: ms-cuentas
+    ports:
+      - "8082:8082"
+    networks:
+      - banco-network
+    depends_on:
+      - sqlserver
+      - rabbitmq
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:sqlserver://sqlserver-container:1433;databaseName=CuentasDB;encrypt=false;
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD: "SiSePuede123*"
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+
+networks:
+  banco-network:
+    driver: bridge
+
+volumes:
+  sqlserver_data:
+  rabbitmq_data:
