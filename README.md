@@ -17,6 +17,12 @@ Este proyecto es una implementación de un **sistema bancario** basado en **micr
    - Verificación de saldo antes de realizar un movimiento.
    - Asignación única de cuentas a clientes.
 
+✔ **Patrones de Diseño Utilizados**:
+   - **DDD (Domain Driven Design)** para la organización del código.
+   - **Repository Pattern** para la separación de la lógica de acceso a datos.
+   - **Event-Driven Architecture** con RabbitMQ.
+   - **Patrón CQRS** hay una separacion entre las consultas y los comandos.
+
 ✔ **Pruebas Unitarias & de Integración** con `JUnit`.
 
 ✔ **Dockerización completa** 🐋:
@@ -31,19 +37,29 @@ Este proyecto es una implementación de un **sistema bancario** basado en **micr
 ## 🛠 **🚀 ¿Cómo Deployar en Local?**
 Sigue estos pasos para levantar todo el sistema en tu máquina **sin complicaciones**. 🚀
 
-### 💮 **1⃣ Levantar RabbitMQ** 🐇
+### 🎮 **1⃣ Descargar el Proyecto**
+Clona el repositorio en tu máquina local:
+```sh
+git clone https://github.com/FrankDevg/BancoBackend.git
+cd backend
+```
+
+---
+
+### 💚 **2⃣ Levantar RabbitMQ** 🐇
 Ejecuta este comando:
 ```sh
 docker-compose up -d rabbitmq
 ```
 📌 **Verifica que RabbitMQ está corriendo en** `http://localhost:15672`  
-🗜 **Credenciales:**  
+🛉 **Credenciales:**  
   - Usuario: `guest`  
   - Contraseña: `guest`
+  - Colas: `cola.solicitud.cuentas,cola.respuesta.cuentas`
 
 ---
 
-### 💮 **2⃣ Levantar SQL Server** 🟢
+### 💚 **3⃣ Levantar SQL Server** 🟢
 Ejecuta este comando:
 ```sh
 docker-compose up -d sqlserver
@@ -54,7 +70,7 @@ docker ps
 ```
 Debe aparecer `sqlserver-container` en la lista.
 
-#### **💮 2.1 - Conectar con Azure Data Studio**
+#### **💚 3.1 - Conectar con Azure Data Studio**
 📌 Usa las siguientes credenciales:
 - **Servidor:** `localhost,1433`
 - **Usuario:** `sa`
@@ -63,18 +79,21 @@ Debe aparecer `sqlserver-container` en la lista.
 
 ---
 
-### 💮 **3⃣ Crear las Bases de Datos** 🏦
-Ejecuta lo siguiente en `Azure Data Studio` o `SQL Server Management Studio`:
+### 💚 **4⃣ Crear las Bases de Datos** 🏦
+Antes de levantar los microservicios, ejecuta el script `BaseDatos.sql` en `Azure Data Studio` o `SQL Server Management Studio`:
 
-```sql
+```sh
 CREATE DATABASE ClientesDB;
+GO
+
 CREATE DATABASE CuentasDB;
+GO
 ```
 
 ---
 
-### 💮 **4⃣ Levantar los Microservicios** 🚀
-Ahora, ejecuta:
+### 💚 **5⃣ Levantar los Microservicios** 🚀
+Ejecuta:
 ```sh
 docker-compose up -d ms-clientes ms-cuentas
 ```
@@ -116,7 +135,8 @@ docker-compose down -v
 ---
 
 ## ✨ **🎯 Autor**
-👨‍💻 **Desarrollado por:** [Tu Nombre]  
-📞 **Contacto:** [Tu Correo o LinkedIn]
+👨‍💻 **Desarrollado por:** Andrés Ruiiz
+📞 **Contacto:** franklindbruiz@gmail.com
 
 📌 **¡Gracias por visitar este repositorio!** Si te sirvió, **dale una ⭐ en GitHub** y **compártelo**. 🚀🔥
+
