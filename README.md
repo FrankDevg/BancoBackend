@@ -35,16 +35,17 @@ cd backend
 ```sh
 docker-compose up -d rabbitmq 
 ```
-**Verificar rabbitmq**
+**Verificar RabbitMQ:** `http://localhost:15672`  
+Credenciales: Usuario: `guest` | Contraseña: `guest`
 ```sh
 docker ps
 ```
+SQL SERVER
 ```sh
 docker-compose up -d sqlserver 
 ```
 
-**Verificar RabbitMQ:** `http://localhost:15672`  
-Credenciales: Usuario: `guest` | Contraseña: `guest`
+
 
 **Verificar SQL Server:**
 ```sh
