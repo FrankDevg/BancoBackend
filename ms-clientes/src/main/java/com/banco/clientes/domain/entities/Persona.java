@@ -16,10 +16,8 @@ public class Persona {
     private String direccion;
     private String telefono;
 
-    // 🔹 Constructor vacío
     public Persona() {}
 
-    // 🔹 Constructor con parámetros
     public Persona(Long id, String nombre, String genero, Integer edad, String identificacion, String direccion, String telefono) {
         this.id = id;
         this.nombre = nombre;
@@ -30,7 +28,6 @@ public class Persona {
         this.telefono = telefono;
     }
 
-    // 🔹 Getters y Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

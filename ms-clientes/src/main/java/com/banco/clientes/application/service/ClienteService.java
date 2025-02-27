@@ -23,23 +23,19 @@ public class ClienteService {
         this.clienteRepository = clienteRepository;
     }
 
-    // 🔹 Obtener todos los clientes
     public List<Cliente> obtenerClientes() {
         return clienteRepository.findAll();
     }
 
-    // 🔹 Obtener cliente por ID con excepción si no existe
     public Cliente obtenerClientePorId(Long id) {
         return clienteRepository.findById(id)
                 .orElseThrow(() -> new ClienteNotFoundException("Cliente con ID " + id + " no encontrado"));
     }
 
-    // 🔹 Guardar cliente
     public Cliente guardarCliente(Cliente cliente) {
         return clienteRepository.save(cliente);
     }
 
-    // 🔹 Actualizar cliente
     public Cliente actualizarCliente(Long id, Cliente clienteActualizado) {
         Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new ClienteNotFoundException("Cliente con ID " + id + " no encontrado"));
@@ -60,12 +56,10 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
 
-    // 🔹 Verificar si un cliente existe
     public boolean existeCliente(Long id) {
         return clienteRepository.existsById(id);
     }
 
-    // 🔹 Eliminar cliente con verificación
     public void eliminarCliente(Long id) {
         if (!clienteRepository.existsById(id)) {
             throw new ClienteNotFoundException("Cliente con ID " + id + " no encontrado");
@@ -73,7 +67,6 @@ public class ClienteService {
         clienteRepository.deleteById(id);
     }
 
-    // 🔹 Obtener cuentas asociadas a un cliente
     public List<Long> obtenerCuentasPorCliente(Long clienteId) {
         List<Long> cuentas = clienteCuentaRepository.findByClienteId(clienteId)
                 .stream()
@@ -87,7 +80,6 @@ public class ClienteService {
         return cuentas;
     }
 
-    // 🔹 Asignar cuenta a cliente (verifica si ya está asignada)
     public ClienteCuenta asignarCuentaACliente(Long clienteId, Long cuentaId) {
         if (clienteCuentaRepository.existsByCuentaId(cuentaId)) {
             throw new ClienteNotFoundException("La cuenta con ID " + cuentaId + " ya está asignada a otro cliente.");
@@ -97,7 +89,6 @@ public class ClienteService {
         return clienteCuentaRepository.save(clienteCuenta);
     }
 
-    // 🔹 Eliminar cuenta de un cliente
     public void eliminarCuentaDeCliente(Long clienteId, Long cuentaId) {
         ClienteCuenta clienteCuenta = clienteCuentaRepository.findByClienteIdAndCuentaId(clienteId, cuentaId);
         if (clienteCuenta == null) {

@@ -15,23 +15,19 @@ public class CuentaService {
         this.cuentaRepository = cuentaRepository;
     }
 
-    // 🔹 Obtener todas las cuentas
     public List<Cuenta> obtenerCuentas() {
         return cuentaRepository.findAll();
     }
 
-    // 🔹 Obtener cuenta por ID con excepción si no existe
     public Cuenta obtenerCuentaPorId(Long id) {
         return cuentaRepository.findById(id)
                 .orElseThrow(() -> new CuentaNotFoundException("Cuenta con ID " + id + " no encontrada"));
     }
 
-    // 🔹 Guardar una nueva cuenta
     public Cuenta guardarCuenta(Cuenta cuenta) {
         return cuentaRepository.save(cuenta);
     }
 
-    // 🔹 Actualizar cuenta existente con verificación de existencia
     public Cuenta actualizarCuenta(Long id, Cuenta cuentaActualizada) {
         if (cuentaActualizada == null) {
             throw new IllegalArgumentException("Los datos de la cuenta no pueden ser nulos.");
@@ -45,8 +41,6 @@ public class CuentaService {
             return cuentaRepository.save(cuenta);
         }).orElseThrow(() -> new CuentaNotFoundException("Cuenta no encontrada con ID: " + id));
     }
-
-    // 🔹 Eliminar cuenta con verificación
     public void eliminarCuenta(Long id) {
         if (!cuentaRepository.existsById(id)) {
             throw new CuentaNotFoundException("No se puede eliminar. La cuenta con ID " + id + " no existe.");

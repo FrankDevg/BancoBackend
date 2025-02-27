@@ -16,31 +16,26 @@ public class CuentaController {
         this.cuentaService = cuentaService;
     }
 
-    // 🔹 Obtener todas las cuentas
     @GetMapping
     public ResponseEntity<List<Cuenta>> obtenerCuentas() {
         return ResponseEntity.ok(cuentaService.obtenerCuentas());
     }
 
-    // 🔹 Obtener cuenta por ID (lanza excepción si no existe)
     @GetMapping("/{id}")
     public ResponseEntity<Cuenta> obtenerCuentaPorId(@PathVariable("id") Long id) {
         return ResponseEntity.ok(cuentaService.obtenerCuentaPorId(id));
     }
 
-    // 🔹 Crear una cuenta nueva
     @PostMapping
     public ResponseEntity<Cuenta> crearCuenta(@RequestBody Cuenta cuenta) {
         return ResponseEntity.ok(cuentaService.guardarCuenta(cuenta));
     }
 
-    // 🔹 Actualizar cuenta existente
     @PutMapping("/{id}")
     public ResponseEntity<Cuenta> actualizarCuenta(@PathVariable("id") Long id, @RequestBody Cuenta cuentaActualizada) {
         return ResponseEntity.ok(cuentaService.actualizarCuenta(id, cuentaActualizada));
     }
 
-    // 🔹 Eliminar cuenta existente
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarCuenta(@PathVariable("id") Long id) {
         cuentaService.eliminarCuenta(id);

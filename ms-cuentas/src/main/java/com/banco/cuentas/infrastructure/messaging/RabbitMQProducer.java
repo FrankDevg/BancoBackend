@@ -12,7 +12,7 @@ public class RabbitMQProducer {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    // ✅ Enviar solicitud de cuentas por cliente
+    //  Enviar solicitud de cuentas por cliente
     public void solicitarCuentasCliente(Long clienteId) {
         System.out.println("📩 Enviando solicitud de cuentas para cliente ID: " + clienteId);
         rabbitTemplate.convertAndSend("cola.solicitud.cuentas", clienteId);

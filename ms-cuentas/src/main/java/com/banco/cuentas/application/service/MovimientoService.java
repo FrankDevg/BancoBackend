@@ -21,40 +21,33 @@ public class MovimientoService {
         this.cuentaRepository = cuentaRepository;
     }
 
-    // 🔹 Obtener todos los movimientos
     public List<Movimiento> obtenerMovimientos() {
         return movimientoRepository.findAll();
     }
 
-    // 🔹 Obtener un movimiento por ID con excepción si no existe
     public Movimiento obtenerMovimientoPorId(Long id) {
         return movimientoRepository.findById(id)
                 .orElseThrow(() -> new MovimientoNotFoundException("Movimiento con ID " + id + " no encontrado"));
     }
 
-    // 🔹 Registrar un nuevo movimiento con validaciones
     public Movimiento registrarMovimiento(Movimiento movimiento) {
         if (movimiento.getCuenta() == null || movimiento.getCuenta().getId() == null) {
             throw new IllegalArgumentException("El movimiento debe estar asociado a una cuenta existente.");
         }
 
-        // 🔹 Verificar si la cuenta existe
         Cuenta cuenta = cuentaRepository.findById(movimiento.getCuenta().getId())
                 .orElseThrow(() -> new CuentaNotFoundException("No se puede registrar el movimiento. La cuenta con ID " + movimiento.getCuenta().getId() + " no existe."));
 
         double saldoAnterior = cuenta.getSaldoInicial();
         double nuevoSaldo = saldoAnterior + movimiento.getValor(); // 🔹 Se suma para ingresos y resta para retiros
 
-        // 🔹 Validar saldo insuficiente antes de actualizar
         if (movimiento.getValor() < 0 && saldoAnterior < Math.abs(movimiento.getValor())) {
             throw new SaldoInsuficienteException("Saldo no disponible para la transacción.");
         }
 
-        // 🔹 Actualizar saldo en la cuenta y guardar
         cuenta.setSaldoInicial(nuevoSaldo);
         cuentaRepository.save(cuenta);
 
-        // 🔹 Asignar saldo anterior y nuevo saldo al movimiento
         movimiento.setSaldoAnterior(saldoAnterior);
         movimiento.setSaldo(nuevoSaldo);
         movimiento.setCuenta(cuenta);

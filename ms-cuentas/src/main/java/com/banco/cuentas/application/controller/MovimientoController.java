@@ -16,13 +16,11 @@ public class MovimientoController {
         this.movimientoService = movimientoService;
     }
 
-    // 🔹 Obtener todos los movimientos
     @GetMapping
     public ResponseEntity<List<Movimiento>> obtenerMovimientos() {
         return ResponseEntity.ok(movimientoService.obtenerMovimientos());
     }
 
-    // 🔹 Registrar un nuevo movimiento (sin `try-catch`, manejado por `GlobalExceptionHandler`)
     @PostMapping
     public ResponseEntity<Movimiento> registrarMovimiento(@RequestBody Movimiento movimiento) {
         return ResponseEntity.ok(movimientoService.registrarMovimiento(movimiento));

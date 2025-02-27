@@ -22,11 +22,9 @@ public class ReporteService {
     }
 
     public List<Movimiento> obtenerReporteEstadoCuenta(Long clienteId, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
-        //  Enviar solicitud de cuentas
         cuentasClienteFuture = new CompletableFuture<>();
         rabbitTemplate.convertAndSend("cola.solicitud.cuentas", clienteId);
 
-        //  Esperar respuesta con las cuentas asociadas
         List<Long> cuentasCliente;
         try {
             cuentasCliente = cuentasClienteFuture.get(); // Espera hasta recibir la respuesta
@@ -38,7 +36,6 @@ public class ReporteService {
             return List.of();
         }
 
-        //  Filtrar movimientos de esas cuentas en el rango de fechas
         return movimientoRepository.findByFechaBetweenAndCuentaIdIn(fechaInicio, fechaFin, cuentasCliente);
     }
     public void setCuentasClienteFuture(List<Long> cuentas) {

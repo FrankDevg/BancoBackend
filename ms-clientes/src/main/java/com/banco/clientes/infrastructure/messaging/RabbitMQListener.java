@@ -19,10 +19,8 @@ public class RabbitMQListener {
     public void recibirSolicitudCuentas(Long clienteId) {
         System.out.println("Recibida solicitud de cuentas para cliente ID: " + clienteId);
 
-        // 🔹 Obtener cuentas del cliente
         List<Long> cuentas = clienteService.obtenerCuentasPorCliente(clienteId);
 
-        // 🔹 Enviar respuesta a la cola `cola.respuesta.cuentas`
         rabbitMQProducer.enviarCuentasCliente(cuentas);
     }
 }

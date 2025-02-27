@@ -14,10 +14,8 @@ public class Cuenta {
     private Double saldoInicial;
     private Boolean estado;
 
-    // 🔹 Constructor vacío
     public Cuenta() {}
 
-    // 🔹 Constructor con parámetros
     public Cuenta(Long id, String numeroCuenta, String tipoCuenta, Double saldoInicial, Boolean estado) {
         this.id = id;
         this.numeroCuenta = numeroCuenta;
@@ -26,7 +24,6 @@ public class Cuenta {
         this.estado = estado;
     }
 
-    // 🔹 Getters y Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

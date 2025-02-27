@@ -15,17 +15,17 @@ public class Movimiento {
     private Double valor;
     private Double saldo;
 
-    @Transient // 🔹 No se almacena en la BD, solo se usa en la respuesta JSON
+    @Transient
     private Double saldoAnterior;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cuenta_id", nullable = false)
     private Cuenta cuenta;
 
-    // 🔹 Constructor vacío
+
     public Movimiento() {}
 
-    // 🔹 Constructor con parámetros
+
     public Movimiento(Long id, LocalDateTime fecha, String tipoMovimiento, Double valor, Double saldo, Double saldoAnterior, Cuenta cuenta) {
         this.id = id;
         this.fecha = fecha;
@@ -36,7 +36,7 @@ public class Movimiento {
         this.cuenta = cuenta;
     }
 
-    // 🔹 Getters y Setters
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

@@ -19,9 +19,9 @@ public class RabbitMQProducer {
         try {
             String jsonCuentas = objectMapper.writeValueAsString(cuentas);
             rabbitTemplate.convertAndSend("cola.respuesta.cuentas", jsonCuentas);
-            System.out.println("✅ Respuesta enviada con cuentas: " + jsonCuentas);
+            System.out.println("Respuesta enviada con cuentas: " + jsonCuentas);
         } catch (Exception e) {
-            System.err.println("❌ Error al enviar el mensaje a RabbitMQ: " + e.getMessage());
+            System.err.println("Error al enviar el mensaje a RabbitMQ: " + e.getMessage());
         }
     }
 }

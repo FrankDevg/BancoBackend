@@ -24,10 +24,10 @@ class ClienteTest {
 
     @Test
     void testSetters() {
-        // 🔹 Crear cliente vacío
+
         Cliente cliente = new Cliente();
 
-        // 🔹 Asignar valores con setters
+
         cliente.setId(2L);
         cliente.setNombre("María López");
         cliente.setGenero("F");
@@ -38,7 +38,7 @@ class ClienteTest {
         cliente.setContrasenia("mypass456");
         cliente.setEstado(false);
 
-        // 🔹 Verificar que los valores se actualizaron correctamente
+
         assertEquals(2L, cliente.getId());
         assertEquals("María López", cliente.getNombre());
         assertEquals("F", cliente.getGenero());

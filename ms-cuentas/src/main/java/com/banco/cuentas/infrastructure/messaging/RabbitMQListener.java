@@ -19,11 +19,11 @@ public class RabbitMQListener {
         this.objectMapper = objectMapper;
     }
 
-    // ✅ Escuchar la respuesta desde `ms-clientes`
+    //  Escuchar la respuesta desde `ms-clientes`
     @RabbitListener(queues = "cola.respuesta.cuentas")
     public void recibirCuentasCliente(String mensaje) {
         try {
-            // 🔹 Convertir el mensaje JSON a `List<Long>`
+            //  Convertir el mensaje JSON a `List<Long>`
             List<Long> cuentasCliente = objectMapper.readValue(mensaje, new TypeReference<List<Long>>() {});
 
             System.out.println("Recibida lista de cuentas: " + cuentasCliente);
