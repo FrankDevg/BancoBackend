@@ -33,8 +33,16 @@ cd backend
 
 ### **2️⃣ Levantar Infraestructura con Docker Compose**
 ```sh
-docker-compose up -d rabbitmq sqlserver
+docker-compose up -d rabbitmq 
 ```
+**Verificar rabbitmq**
+```sh
+docker ps
+```
+```sh
+docker-compose up -d sqlserver 
+```
+
 **Verificar RabbitMQ:** `http://localhost:15672`  
 Credenciales: Usuario: `guest` | Contraseña: `guest`
 
