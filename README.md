@@ -46,7 +46,7 @@ cd backend
 
 ---
 
-### 💚 **2⃣ Levantar RabbitMQ** 🐇
+###  **2⃣ Levantar RabbitMQ** 🐇
 Ejecuta este comando:
 ```sh
 docker-compose up -d rabbitmq
@@ -59,7 +59,7 @@ docker-compose up -d rabbitmq
 
 ---
 
-### 💚 **3⃣ Levantar SQL Server** 🟢
+###  **3⃣ Levantar SQL Server** 🟢
 Ejecuta este comando:
 ```sh
 docker-compose up -d sqlserver
@@ -70,7 +70,7 @@ docker ps
 ```
 Debe aparecer `sqlserver-container` en la lista.
 
-#### **💚 3.1 - Conectar con Azure Data Studio**
+#### ** 3.1 - Conectar con Azure Data Studio**
 📌 Usa las siguientes credenciales:
 - **Servidor:** `localhost,1433`
 - **Usuario:** `sa`
@@ -79,7 +79,7 @@ Debe aparecer `sqlserver-container` en la lista.
 
 ---
 
-### 💚 **4⃣ Crear las Bases de Datos** 🏦
+###  **4⃣ Crear las Bases de Datos** 🏦
 Antes de levantar los microservicios, ejecuta el script `BaseDatos.sql` en `Azure Data Studio` o `SQL Server Management Studio`:
 
 ```sh
@@ -92,7 +92,7 @@ GO
 
 ---
 
-### 💚 **5⃣ Levantar los Microservicios** 🚀
+###  **5⃣ Levantar los Microservicios** 🚀
 Ejecuta:
 ```sh
 docker-compose up -d ms-clientes ms-cuentas
@@ -105,13 +105,13 @@ Deben aparecer `ms-clientes` y `ms-cuentas` en la lista.
 
 ---
 
-## 🔎 **📀 Probar los Endpoints con Postman**
+## 🔎 ** Probar los Endpoints con Postman**
 📌 **Colección de Postman para pruebas:**  
 👉 **[Acceder a la Colección en Postman](https://www.postman.com/frankdevg/workspace/pruebatecnicabanca/collection/15595185-bdbead67-296a-4f23-9636-e9cb526f2764?action=share&creator=15595185)**  
 
 ---
 
-## 🚀 **📀 Cómo Detener Todo**
+## 🚀 ** Cómo Detener Todo**
 Si necesitas detener los servicios, ejecuta:
 ```sh
 docker-compose down
@@ -138,5 +138,5 @@ docker-compose down -v
 👨‍💻 **Desarrollado por:** Andrés Ruiiz
 📞 **Contacto:** franklindbruiz@gmail.com
 
-📌 **¡Gracias por visitar este repositorio!** Si te sirvió, **dale una ⭐ en GitHub** y **compártelo**. 🚀🔥
+📌 **¡Gracias por visitar este repositorio!** 
 
