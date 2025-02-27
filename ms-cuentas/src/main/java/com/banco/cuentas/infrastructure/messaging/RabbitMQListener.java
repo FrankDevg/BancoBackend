@@ -1,6 +1,6 @@
 package com.banco.cuentas.infrastructure.rabbitmq;
 
-import com.banco.cuentas.application.ReporteService;
+import com.banco.cuentas.application.service.ReporteService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -26,10 +26,10 @@ public class RabbitMQListener {
             // 🔹 Convertir el mensaje JSON a `List<Long>`
             List<Long> cuentasCliente = objectMapper.readValue(mensaje, new TypeReference<List<Long>>() {});
 
-            System.out.println("✅ Recibida lista de cuentas: " + cuentasCliente);
+            System.out.println("Recibida lista de cuentas: " + cuentasCliente);
             reporteService.setCuentasClienteFuture(cuentasCliente);
         } catch (Exception e) {
-            System.err.println("❌ Error al procesar el mensaje: " + e.getMessage());
+            System.err.println("Error al procesar el mensaje: " + e.getMessage());
         }
     }
 }

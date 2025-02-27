@@ -1,6 +1,6 @@
-package com.banco.clientes.infrastructure.controller;
+package com.banco.clientes.application.controller;
 
-import com.banco.clientes.application.ClienteService;
+import com.banco.clientes.application.service.ClienteService;
 import com.banco.clientes.domain.entities.ClienteCuenta;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,20 +16,20 @@ public class ClienteCuentaController {
         this.clienteService = clienteService;
     }
 
-    // ✅ Obtener todas las cuentas asignadas a un cliente
+    // Obtener todas las cuentas asignadas a un cliente
     @GetMapping("/{clienteId}")
     public ResponseEntity<List<Long>> obtenerCuentasPorCliente(@PathVariable Long clienteId) {
         return ResponseEntity.ok(clienteService.obtenerCuentasPorCliente(clienteId));
     }
 
-    // ✅ Asignar una cuenta a un cliente (Evita duplicados)
+    //  Asignar una cuenta a un cliente (Evita duplicados)
     @PostMapping
     public ResponseEntity<ClienteCuenta> asignarCuentaACliente(@RequestBody ClienteCuenta clienteCuenta) {
         return ResponseEntity.ok(clienteService.asignarCuentaACliente(clienteCuenta.getClienteId(), clienteCuenta.getCuentaId()));
     }
 
 
-    // ✅ Eliminar una cuenta asignada a un cliente
+    //  Eliminar una cuenta asignada a un cliente
     @DeleteMapping
     public ResponseEntity<?> eliminarCuentaDeCliente(@RequestParam Long clienteId, @RequestParam Long cuentaId) {
         try {
@@ -39,4 +39,6 @@ public class ClienteCuentaController {
             return ResponseEntity.badRequest().body("{\"error\": \"" + e.getMessage() + "\"}");
         }
     }
+
+
 }

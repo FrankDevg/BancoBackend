@@ -1,6 +1,6 @@
-package com.banco.clientes.infrastructure.controller;
+package com.banco.clientes.application.controller;
 
-import com.banco.clientes.application.ClienteService;
+import com.banco.clientes.application.service.ClienteService;
 import com.banco.clientes.domain.entities.Cliente;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,11 +23,11 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> obtenerClientePorId(@PathVariable("id") Long id) {
-        return clienteService.obtenerClientePorId(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<Cliente> obtenerClientePorId(@PathVariable Long id) {
+        Cliente cliente = clienteService.obtenerClientePorId(id);
+        return ResponseEntity.ok(cliente);
     }
+
 
     @PostMapping
     public ResponseEntity<Cliente> crearCliente(@RequestBody Cliente cliente) {

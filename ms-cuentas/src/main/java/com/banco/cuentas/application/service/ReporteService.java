@@ -1,4 +1,4 @@
-package com.banco.cuentas.application;
+package com.banco.cuentas.application.service;
 
 import com.banco.cuentas.domain.entities.Movimiento;
 import com.banco.cuentas.domain.repository.MovimientoRepository;

@@ -1,12 +1,11 @@
-package com.banco.cuentas.infrastructure.controller;
+package com.banco.cuentas.application.controller;
 
-import com.banco.cuentas.application.MovimientoService;
+import com.banco.cuentas.application.service.MovimientoService;
 import com.banco.cuentas.domain.entities.Movimiento;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/movimientos")
@@ -17,19 +16,15 @@ public class MovimientoController {
         this.movimientoService = movimientoService;
     }
 
+    // 🔹 Obtener todos los movimientos
     @GetMapping
     public ResponseEntity<List<Movimiento>> obtenerMovimientos() {
         return ResponseEntity.ok(movimientoService.obtenerMovimientos());
     }
 
+    // 🔹 Registrar un nuevo movimiento (sin `try-catch`, manejado por `GlobalExceptionHandler`)
     @PostMapping
-    public ResponseEntity<?> registrarMovimiento(@RequestBody Movimiento movimiento) {
-        try {
-            Movimiento nuevoMovimiento = movimientoService.registrarMovimiento(movimiento);
-            return ResponseEntity.ok(nuevoMovimiento);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("{\"message\": \"" + e.getMessage() + "\"}");
-        }
+    public ResponseEntity<Movimiento> registrarMovimiento(@RequestBody Movimiento movimiento) {
+        return ResponseEntity.ok(movimientoService.registrarMovimiento(movimiento));
     }
-
 }
